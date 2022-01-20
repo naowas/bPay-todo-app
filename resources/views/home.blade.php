@@ -3,7 +3,16 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1 class="m-0 text-dark">Dashboard</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <h5>Create new todo</h5>
+        </div>
+        <div class="col-md-8 text-right">
+            <div class="pull-right">
+                <a href="{{url('/todo')}}" class="btn btn-success"> Todo list<i class="fa fa-fw fa-list"></i></a>
+            </div>
+        </div>
+    </div>
 @stop
 
 @section('content')
