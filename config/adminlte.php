@@ -448,6 +448,56 @@ return [
                 ],
             ],
         ],
+        'time' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/js/tempusdominus-bootstrap-4.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.39.0/css/tempusdominus-bootstrap-4.min.css',
+                ],
+            ],
+        ],
+        'toastr' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/toastr/toastr.min.js',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/toastr/toastr.css',
+                ],
+            ],
+        ],
+//        'sweetalert2' => [
+//            'active' => true,
+//            'files' => [
+//                [
+//                    'type' => 'js',
+//                    'asset' => true,
+//                    'location' => 'vendor/sweetalert2/sweetalert2.js',
+//                ],
+//                [
+//                    'type' => 'css',
+//                    'asset' => true,
+//                    'location' => 'vendor/sweetalert2/sweetalert2.css',
+//                ],
+//                [
+//                    'type' => 'css',
+//                    'asset' => true,
+//                    'location' => 'vendor/sweetalert2-theme-bootstrap-4/bootstrap-4.css',
+//                ],
+//            ],
+//        ],
     ],
 
     /*

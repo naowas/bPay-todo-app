@@ -23,6 +23,7 @@ Route::group(['middleware' => ['auth']], static function () {
         return redirect('/dashboard');
     });
     Route::get('/dashboard', DashboardController::class);
+    Route::get('/todo/data', [TodoController::class,'data']);
     Route::resource('todo', TodoController::class);
 });
 
