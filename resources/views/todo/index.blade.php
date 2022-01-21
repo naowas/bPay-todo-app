@@ -19,18 +19,20 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-info">
-                <table id="data-table" class="table table-bordered table-hover dataTable dtr-inline">
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Title</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Notification Status</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                </table>
+                <div class="card-body">
+                    <table id="data-table" class="table table-bordered table-hover dataTable dtr-inline">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Title</th>
+                            <th>Date</th>
+                            <th>Time</th>
+                            <th>Notification Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

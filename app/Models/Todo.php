@@ -32,13 +32,23 @@ class Todo extends Model
     {
         $this->attributes['time'] = Carbon::parse($value)->format('h:i:s');
     }
+
     public function getTimeAttribute($value): string
     {
-       return $this->attributes['time'] = Carbon::parse($value)->isoFormat('LT');
-    }
-    public function getDateAttribute($value): string
-    {
-       return $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
+        return $this->attributes['time'] = Carbon::parse($value)->isoFormat('LT');
     }
 
+    public function getDateAttribute($value): string
+    {
+        return $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
+    }
+
+    public function getSendingStatusAttribute($value): string
+    {
+        if ($value === 1) {
+            return '<span class="badge badge-success">Send</span>';
+        }
+        return '<span class="badge badge-warning">Pending</span>';
+
+    }
 }

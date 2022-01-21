@@ -71,11 +71,11 @@ class TodoController extends Controller
      * Display the specified resource.
      *
      * @param Todo $todo
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
-    public function show(Todo $todo)
+    public function show(Todo $todo): View|Factory|Application
     {
-        //
+        return  view('todo.show',$todo);
     }
 
     /**
@@ -143,8 +143,8 @@ class TodoController extends Controller
         return $this->dataTable->eloquent($query)
             ->addColumn('action', function ($item) {
                 $action = '<td>';
-                $action .= ' <a href="' . url($this->url . '/' . $item->id . '/view') . '" class="btn btn-xs btn-primary button-view" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>';
-                $action .= ' <a href="' . url($this->url . '/' . $item->id . '/edit') . '" class="btn btn-xs btn-primary button-edit" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>';
+                $action .= ' <a href="' . url($this->url . '/' . $item->id ) . '" class="btn btn-xs btn-primary button-view" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>';
+                $action .= ' <a href="' . url($this->url . '/' . $item->id . '/edit') . '" class="btn btn-xs btn-warning button-edit" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>';
                 $action .= ' <a href="' . url($this->url . '/' . $item->id) . '" class="btn btn-xs btn-danger button-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
                 $action .= '<td>';
                 return $action;
@@ -155,6 +155,10 @@ class TodoController extends Controller
             ->editColumn('description', function ($item) {
                 return $item['description'];
             })
+            ->editColumn('sending_status', function ($item) {
+                return $item['sending_status'];
+            })
+            ->rawColumns(['sending_status','action'])
             ->make(true);
     }
 

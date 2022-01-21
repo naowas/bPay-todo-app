@@ -237,50 +237,26 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'text' => 'Todo',
-            'url' => 'todo',
-            'icon' => 'far fa-fw fa-file',
-        ],
-//        ['header' => 'Works'],
 //        [
 //            'text' => 'Todo',
-//            'icon' => 'fas fa-fw fa-share',
-//            'submenu' => [
-//                [
-//                    'text' => 'level_one',
-//                    'url' => '#',
-//                ],
-//                [
-//                    'text' => 'level_one',
-//                    'url' => '#',
-//                    'submenu' => [
-//                        [
-//                            'text' => 'level_two',
-//                            'url' => '#',
-//                        ],
-//                        [
-//                            'text' => 'level_two',
-//                            'url' => '#',
-//                            'submenu' => [
-//                                [
-//                                    'text' => 'level_three',
-//                                    'url' => '#',
-//                                ],
-//                                [
-//                                    'text' => 'level_three',
-//                                    'url' => '#',
-//                                ],
-//                            ],
-//                        ],
-//                    ],
-//                ],
-//                [
-//                    'text' => 'level_one',
-//                    'url' => '#',
-//                ],
-//            ],
+//            'url' => 'todo',
+//            'icon' => 'far fa-fw fa-file',
 //        ],
+//        ['header' => 'Works'],
+        [
+            'text' => 'Todo',
+            'icon' => 'far fa-fw fa-file',
+            'submenu' => [
+                [
+                    'text' => 'Todo List',
+                    'url' => 'todo',
+                ],
+                [
+                    'text' => 'Create new',
+                    'url' => 'todo/create',
+                ],
+            ],
+        ],
     ],
 
     /*
