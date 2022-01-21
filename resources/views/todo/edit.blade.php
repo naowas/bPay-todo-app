@@ -9,7 +9,7 @@
         </div>
         <div class="col-md-8 text-right">
             <div class="pull-right">
-                <a href="{{url('/todo')}}" class="btn btn-success"> Todo list<i class="fa fa-fw fa-list"></i></a>
+                <a href="{{url('/todo')}}" class="btn btn-success"> Todo list <i class="fa fa-fw fa-list"></i></a>
             </div>
         </div>
     </div>
