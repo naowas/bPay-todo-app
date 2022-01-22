@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Carbon;
 
 class Todo extends Model
@@ -30,7 +31,7 @@ class Todo extends Model
 
     public function setTimeAttribute($value): void
     {
-        $this->attributes['time'] = Carbon::parse($value)->format('h:i:s');
+        $this->attributes['time'] = Carbon::createFromFormat('h:i A',$value)->format('H:i:s');
     }
 
     public function getTimeAttribute($value): string
@@ -46,9 +47,20 @@ class Todo extends Model
     public function getSendingStatusAttribute($value): string
     {
         if ($value === 1) {
-            return '<span class="badge badge-success">Send</span>';
+            return '<span class="badge badge-success">Sent</span>';
         }
         return '<span class="badge badge-warning">Pending</span>';
 
+    }
+
+    public function getOriginalSendingStatusAttribute()
+    {
+        return $this->attributes['sending_status'];
+
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

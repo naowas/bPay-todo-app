@@ -51,8 +51,8 @@
             var table = $('#data-table').DataTable({
                 processing: true,
                 serverSide: true,
-                order: [[0, "desc"]],
-                lengthMenu: [[50, 100, 500, -1], [50, 100, 500, "All"]],
+                ordering: false,
+                lengthMenu: [[20, 50, 100, 500, -1], [20, 50, 100, 500, "All"]],
                 mark: true,
                 columns: [
                     {data: 'id', name: 'id'},
@@ -60,11 +60,9 @@
                     {data: 'date', name: 'date'},
                     {data: 'time', name: 'time'},
                     {data: 'sending_status', name: 'sending_status'},
-
                     {
                         data: 'action',
                         name: 'action',
-                        orderable: false,
                         searchable: false,
                         'className': 'datatable-action'
                     }
@@ -82,9 +80,9 @@
             // delete resource script
             table.on('click', '.button-delete', function (e) {
                 e.preventDefault();
-                var token = $("meta[name=csrf-token]").attr("content");
-                var method = 'DELETE';
-                var url = $(this).attr('href');
+                let token = $("meta[name=csrf-token]").attr("content");
+                let method = 'DELETE';
+                let url = $(this).attr('href');
                 // show dialog
                 Swal.fire({
                     title: 'Are you sure?',

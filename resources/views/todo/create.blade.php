@@ -23,8 +23,7 @@
                         @csrf
                         <div class="card-body">
                             <div class="form-group">
-                                <label for="taskTitle">Task title</label>
-                                <input type="text" name="title" class="form-control" id="taskTitle" placeholder="">
+                                <x-adminlte-input name="title" label="Task title" placeholder=""/>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">

@@ -107,6 +107,8 @@ return [
     |
     */
 
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+
     'markdown' => [
         'theme' => 'default',
 

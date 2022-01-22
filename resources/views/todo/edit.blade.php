@@ -10,23 +10,27 @@
         <div class="col-md-8 text-right">
             <div class="pull-right">
                 <a href="{{url('/todo')}}" class="btn btn-success"> Todo list <i class="fa fa-fw fa-list"></i></a>
-                <a href="{{url('/todo/'.$id)}}" class="btn btn-info"> View <i class="fa fa-eye"></i></a>
+                <a href="{{url('/todo/'.$todo->id)}}" class="btn btn-info"> View <i class="fa fa-eye"></i></a>
             </div>
         </div>
     </div>
 @stop
 
 @section('content')
+    @php
+        @endphp
     <div class="row">
         <div class="col-md-12">
             <div class="card card-primary">
-                <form action="{{url('/todo/'.$id)}}" method="post" enctype="multipart/form-data">
+                <form action="{{url('/todo/'.$todo->id)}}" method="post" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="taskTitle">Task title</label>
-                            <input type="text" name="title" class="form-control" id="taskTitle" value="{{$title}}">
+                            <input type="hidden" name="user_id" value="{{$todo->user_id}}">
+                            <input type="hidden" name="sending_status" value="{{$todo->getRawOriginal('sending_status')}}">
+                            <x-adminlte-input name="title" label="Task title" value="{{$todo->title}}"/>
+
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -38,7 +42,7 @@
                                             ];
                                     @endphp
                                     <x-adminlte-input-date name="date" label="Date" igroup-size="md" :config="$config"
-                                                           value="{{$date}}">
+                                                           value="{{$todo->date}}">
                                         <x-slot name="appendSlot">
                                             <div class="input-group-text bg-gradient-info">
                                                 <i class="fas fa-calendar-alt"></i>
@@ -56,7 +60,7 @@
                                             ];
                                     @endphp
                                     <x-adminlte-input-date name="time" label="Time" igroup-size="md" :config="$config"
-                                                           value="{{$time}}">
+                                                           value="{{$todo->time}}">
                                         <x-slot name="appendSlot">
                                             <div class="input-group-text bg-gradient-info">
                                                 <i class="fas fa-clock"></i>
@@ -87,7 +91,7 @@
                             @endphp
                             <x-adminlte-text-editor name="description" label="Task details" igroup-size="md"
                                                     :config="$config">
-                                {{$description}}
+                                {{$todo->description}}
                             </x-adminlte-text-editor>
 
                         </div>

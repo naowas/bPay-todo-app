@@ -24,6 +24,7 @@ Route::group(['middleware' => ['auth']], static function () {
     });
     Route::get('/dashboard', DashboardController::class);
     Route::get('/todo/data', [TodoController::class,'data']);
+    Route::get('/todo/send-mail', [TodoController::class,'sendMailRemainder']);
     Route::resource('todo', TodoController::class);
 });
 

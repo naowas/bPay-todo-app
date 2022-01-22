@@ -24,7 +24,12 @@ class UpdateTodoRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|string',
+            'description' => 'required|string',
+            'date' => 'required|date',
+            'time' => 'required',
+            'user_id' => 'required|integer',
+            'sending_status' => 'required|integer',
         ];
     }
 }

@@ -4,24 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
+use App\Jobs\SendTodoRemainderEmail;
 use App\Models\Todo;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables as YajraDatatable;
+use App\Services\TodoService;
 
 class TodoController extends Controller
 {
     protected YajraDatatable $dataTable;
     protected string $url = 'todo';
+    protected TodoService $todoService;
 
-    public function __construct(YajraDatatable $dataTable)
+    public function __construct(TodoService $todoService)
     {
-        $this->dataTable = $dataTable;
+        $this->todoService = $todoService;
     }
 
     /**
@@ -51,17 +55,17 @@ class TodoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \App\Http\Requests\StoreTodoRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreTodoRequest $request
+     * @return RedirectResponse
      */
-    public function store(StoreTodoRequest $request): \Illuminate\Http\RedirectResponse
+    public function store(StoreTodoRequest $request): RedirectResponse
     {
         $data = [
             'sending_status' => Todo::EMAIL_NOT_SENT,
             'user_id' => Auth::id(),
         ];
 
-        $save = Todo::create(array_merge($request->all(), $data));
+        $save = Todo::create(array_merge($request->validated(), $data));
 
         return redirect()->route('todo.index')->with('message', 'Data added Successfully');
 
@@ -75,7 +79,7 @@ class TodoController extends Controller
      */
     public function show(Todo $todo): View|Factory|Application
     {
-        return  view('todo.show',$todo);
+        return view('todo.show', compact('todo'));
     }
 
     /**
@@ -84,27 +88,22 @@ class TodoController extends Controller
      * @param Todo $todo
      * @return Application|Factory|View
      */
-    public function edit(Todo $todo)
+    public function edit(Todo $todo): View|Factory|Application
     {
-        return view('todo.edit', $todo);
-
+        return view('todo.edit', compact('todo'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\UpdateTodoRequest $request
+     * @param UpdateTodoRequest $request
      * @param Todo $todo
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function update(UpdateTodoRequest $request, Todo $todo)
+    public function update(UpdateTodoRequest $request, Todo $todo): RedirectResponse
     {
-        $data = [
-            'sending_status' => Todo::EMAIL_NOT_SENT,
-            'user_id' => Auth::id(),
-        ];
 
-        $save = Todo::findOrFail($todo->id)->update(array_merge($request->all(), $data));
+        $update = Todo::findOrFail($todo->id)->update($request->validated());
 
         return redirect()->route('todo.index')->with('message', 'Data updated Successfully');
     }
@@ -119,47 +118,33 @@ class TodoController extends Controller
     {
         $todoToBeDeleted = Todo::findOrFail($todo->id);
 
-        if ($todoToBeDeleted !== null) {
-            if ($todoToBeDeleted->delete()) {
-                return response()->json([
-                    'status' => 'success',
-                    'data' => null
-                ], 200);
-            }
-
+        if (($todoToBeDeleted !== null) && $todoToBeDeleted->delete()) {
             return response()->json([
-                'status' => 'warning',
+                'status' => 'success',
                 'data' => null
             ], 200);
         }
+        return response()->json([
+            'status' => 'warning',
+            'data' => null
+        ], 200);
     }
 
     /**
      * @throws Exception
      */
-    public function data(Request $request)
+    public function data(Request $request): JsonResponse
     {
-        $query = Todo::orderBY('id', 'DESC')->select();
-        return $this->dataTable->eloquent($query)
-            ->addColumn('action', function ($item) {
-                $action = '<td>';
-                $action .= ' <a href="' . url($this->url . '/' . $item->id ) . '" class="btn btn-xs btn-primary button-view" data-toggle="tooltip" title="View"><i class="fa fa-eye"></i></a>';
-                $action .= ' <a href="' . url($this->url . '/' . $item->id . '/edit') . '" class="btn btn-xs btn-warning button-edit" data-toggle="tooltip" title="Edit"><i class="fa fa-edit"></i></a>';
-                $action .= ' <a href="' . url($this->url . '/' . $item->id) . '" class="btn btn-xs btn-danger button-delete" data-toggle="tooltip" title="Delete"><i class="fa fa-trash"></i></a>';
-                $action .= '<td>';
-                return $action;
-            })
-            ->editColumn('title', function ($item) {
-                return $item['title'];
-            })
-            ->editColumn('description', function ($item) {
-                return $item['description'];
-            })
-            ->editColumn('sending_status', function ($item) {
-                return $item['sending_status'];
-            })
-            ->rawColumns(['sending_status','action'])
-            ->make(true);
+
+        return $this->todoService->data($request);
+
+    }
+
+    public function sendMailRemainder()
+    {
+
+        return $this->todoService->CreateEmailRemainderQueue();
+
     }
 
 }
