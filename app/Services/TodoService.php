@@ -7,9 +7,6 @@ use App\Models\Todo;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Http;
-use JsonException;
 use Yajra\DataTables\DataTables as YajraDatatable;
 
 class TodoService
@@ -27,7 +24,7 @@ class TodoService
      */
     public function data($request): JsonResponse
     {
-        $query = Todo::orderBY('id', 'DESC')->select();
+        $query = Todo::orderBY('id', 'DESC')->where('user_id',\Auth::id())->select();
         return $this->dataTable->eloquent($query)
             ->addColumn('action', function ($item) {
                 $action = '<td>';

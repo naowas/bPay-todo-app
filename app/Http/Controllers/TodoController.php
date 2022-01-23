@@ -78,6 +78,10 @@ class TodoController extends Controller
      */
     public function show(Todo $todo): View|Factory|Application
     {
+        if(Auth::id() !== $todo->user_id){
+            abort(403);
+        }
+
         return view('todo.show', compact('todo'));
     }
 
@@ -89,6 +93,9 @@ class TodoController extends Controller
      */
     public function edit(Todo $todo): View|Factory|Application
     {
+        if(Auth::id() !== $todo->user_id){
+            abort(403);
+        }
         return view('todo.edit', compact('todo'));
     }
 
@@ -101,6 +108,9 @@ class TodoController extends Controller
      */
     public function update(UpdateTodoRequest $request, Todo $todo): RedirectResponse
     {
+        if(Auth::id() !== $todo->user_id){
+            abort(403);
+        }
 
         $update = Todo::findOrFail($todo->id)->update($request->validated());
 
@@ -115,6 +125,9 @@ class TodoController extends Controller
      */
     public function destroy(Todo $todo): JsonResponse
     {
+        if(Auth::id() !== $todo->user_id){
+            abort(403);
+        }
         $todoToBeDeleted = Todo::findOrFail($todo->id);
 
         if (($todoToBeDeleted !== null) && $todoToBeDeleted->delete()) {
