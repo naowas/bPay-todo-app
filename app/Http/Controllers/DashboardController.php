@@ -11,7 +11,7 @@ use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
-    public function __invoke(): Factory|View|Application
+    public function __invoke()
     {
         return view('dashboard.index');
     }
