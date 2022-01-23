@@ -1,15 +1,19 @@
 # Getting started
+This is a simple ToDo app that supports multiple users. This is a simple ToDo app that supports multiple users. It remaind user 10 minuts before task time
+
+
+**This is based on Laravel Framework 8 and was created as a demonstration.**
 
 ## Installation
 
 Please check the official laravel installation guide for server requirements before you
-start. [Official Documentation](https://laravel.com/docs/5.4/installation#installation)
+start. [Official Documentation](https://laravel.com/docs/8.x/installation)
 
 Clone the repository
 
     $ git clone https://github.com/naowas/bPay-todo-app.git
 
-Switch to the repo folder
+Navigate to the repo directory
 
     $ cd bPay-todo-app
 
@@ -38,12 +42,23 @@ Start the local development server
 
 You can now access the server at http://localhost:8000
 
-**For access to the application, use the credentials listed below.**
+**For accessing to the application, use the credentials listed below.**
 
     email: admin@mail.com
     password: password
 
-**This application require scheduler to create todo remainder email queue.**
+**Add email credentials to `.env` file**
+
+    MAIL_MAILER=smtp
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=2525
+    MAIL_USERNAME=yourusername
+    MAIL_PASSWORD=password
+    MAIL_ENCRYPTION=tls
+    MAIL_FROM_ADDRESS=example@mail.com
+    MAIL_FROM_NAME="${APP_NAME}"
+
+**This application require CRON job to create todo remainder email queue.**
 
 Configure **cron** jobs
 

@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="">
 <head>
-    <title>Laravel Mail Queue</title>
+    <title>Todo remainder</title>
 </head>
 <body>
-<dt>Title:</dt>
-<dd >{{$todo['title']}}</dd>
-<dt>Date:</dt>
-<dd>{{$todo['date']}}</dd>
-<dt>Time:</dt>
-<dd>{{$todo['time']}}</dd>
-<dt>Description:</dt>
-<dd>{!! $todo['description'] !!}</dd>
+<p>Title: {{$todo['title']}}</p>
+<p>Date: {{$todo['date']}}</p>
+<p>Time: {{$todo['time']}}</p>
+<p>Description: {!! $todo['description'] !!}</p>
 </body>
 </html>
