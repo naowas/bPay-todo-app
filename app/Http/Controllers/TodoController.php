@@ -32,7 +32,7 @@ class TodoController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function index(): View|Factory|Application
+    public function index()
     {
         $data = [
             'url' => $this->url,
@@ -46,7 +46,7 @@ class TodoController extends Controller
      *
      * @return Application|Factory|View
      */
-    public function create(): View|Factory|Application
+    public function create()
     {
         return view('todo.create');
     }
@@ -57,7 +57,7 @@ class TodoController extends Controller
      * @param StoreTodoRequest $request
      * @return RedirectResponse
      */
-    public function store(StoreTodoRequest $request): RedirectResponse
+    public function store(StoreTodoRequest $request)
     {
         $data = [
             'notification_status' => Todo::EMAIL_NOT_SENT,
@@ -76,7 +76,7 @@ class TodoController extends Controller
      * @param Todo $todo
      * @return Application|Factory|View
      */
-    public function show(Todo $todo): View|Factory|Application
+    public function show(Todo $todo)
     {
         if(Auth::id() !== $todo->user_id){
             abort(403);
@@ -91,7 +91,7 @@ class TodoController extends Controller
      * @param Todo $todo
      * @return Application|Factory|View
      */
-    public function edit(Todo $todo): View|Factory|Application
+    public function edit(Todo $todo)
     {
         if(Auth::id() !== $todo->user_id){
             abort(403);
