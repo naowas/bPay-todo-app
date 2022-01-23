@@ -1,5 +1,5 @@
 # Getting started
-This is a simple ToDo app that supports multiple users. This is a simple ToDo app that supports multiple users. It remaind user 10 minuts before task time
+This is a simple ToDo app that supports multiple users. This is a simple ToDo app that supports multiple users. It remaind user 10 minutes before task time
 
 
 **This is based on Laravel Framework 8 and was created as a demonstration.**
@@ -86,6 +86,8 @@ Open _queue-worker.conf_ with a text editor (nano,vim,gedit,etc.)
 
 Configure _queue-worker.conf_ as follows (replace `path-to-project` with your project directory)
 
+In your home directory create the log file(`worker.log`) first.
+
         [program:queue-worker]
         process_name=%(program_name)s_%(process_num)02d
         command=php /var/www/path-to-project/artisan queue:work
@@ -96,7 +98,7 @@ Configure _queue-worker.conf_ as follows (replace `path-to-project` with your pr
         user=root
         numprocs=8
         redirect_stderr=true
-        stdout_logfile=/home/user/log/worker.log
+        stdout_logfile=/home/yourusername/log/worker.log
 
 
 **Once we saved the contents we need to run following command to initialize new configurations**
@@ -111,4 +113,5 @@ Configure _queue-worker.conf_ as follows (replace `path-to-project` with your pr
     $ sudo supervisorctl restart all
 
 
+**After setting up, if the CRON is not running restart your device**
     
