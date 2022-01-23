@@ -86,7 +86,7 @@ Open _queue-worker.conf_ with a text editor (nano,vim,gedit,etc.)
 
 Configure _queue-worker.conf_ as follows (replace `path-to-project` with your project directory)
 
-        program:queue-worker
+        [program:queue-worker]
         process_name=%(program_name)s_%(process_num)02d
         command=php /var/www/path-to-project/artisan queue:work
         autostart=true
