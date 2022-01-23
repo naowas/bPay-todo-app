@@ -40,7 +40,7 @@
                         <dt class="col-sm-2">Description:</dt>
                         <dd class="col-sm-10">{!! $todo->description !!}</dd>
                         <dt class="col-sm-2">Notification status:</dt>
-                        <dd class="col-sm-10">{!! $todo->sending_status !!}</dd>
+                        <dd class="col-sm-10">{!! $todo->notification_status !!}</dd>
                     </dl>
                 </div>
             </div>

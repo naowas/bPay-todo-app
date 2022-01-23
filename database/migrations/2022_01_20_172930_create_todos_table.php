@@ -19,7 +19,7 @@ class CreateTodosTable extends Migration
             $table->text('description');
             $table->date('date');
             $table->time('time');
-            $table->tinyInteger('sending_status')->default(0);
+            $table->tinyInteger('notification_status')->default(0);
             $table->unsignedBigInteger('user_id');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

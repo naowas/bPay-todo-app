@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Todo;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TodoFactory extends Factory
@@ -22,12 +23,12 @@ class TodoFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->sentence($nbWords = 6, $variableNbWords = true),
-                'description' => $this->faker->paragraph($nbSentences = 3, $variableNbSentences = true),
-                'date' => $this->faker->date,
-                'time' => $this->faker->time,
+            'title' => $this->faker->sentence(6, true),
+                'description' => $this->faker->paragraph(3, true),
+                'date' => $this->faker->dateTimeThisYear('+1 year')->format('Y-m-d'),
+                'time' => $this->faker->dateTimeThisYear('+1 year')->format('h:i A'),
                 'user_id' => 1,
-                'sending_status' => Todo::EMAIL_NOT_SENT,
+                'notification_status' => Todo::EMAIL_NOT_SENT,
         ];
     }
 }

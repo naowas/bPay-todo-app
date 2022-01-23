@@ -15,7 +15,7 @@ class Todo extends Model
         'id'
     ];
     protected $fillable = [
-        'title', 'description', 'date', 'time', 'sending_status', 'user_id'
+        'title', 'description', 'date', 'time', 'notification_status', 'user_id'
     ];
     protected $casts = [
         'title' => 'string',
@@ -44,7 +44,7 @@ class Todo extends Model
         return $this->attributes['date'] = Carbon::parse($value)->format('Y-m-d');
     }
 
-    public function getSendingStatusAttribute($value): string
+    public function getNotificationStatusAttribute($value): string
     {
         if ($value === 1) {
             return '<span class="badge badge-success">Sent</span>';
@@ -53,9 +53,9 @@ class Todo extends Model
 
     }
 
-    public function getOriginalSendingStatusAttribute()
+    public function getOriginalNotificationStatusAttribute()
     {
-        return $this->attributes['sending_status'];
+        return $this->attributes['notification_status'];
 
     }
 

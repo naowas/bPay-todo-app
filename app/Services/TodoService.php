@@ -43,41 +43,18 @@ class TodoService
             ->editColumn('description', function ($item) {
                 return $item['description'];
             })
-            ->editColumn('sending_status', function ($item) {
-                return $item['sending_status'];
+            ->editColumn('notification_status', function ($item) {
+                return $item['notification_status'];
             })
-            ->rawColumns(['sending_status', 'action'])
+            ->rawColumns(['notification_status', 'action']) // for rendering HTML
             ->make(true);
     }
 
     /**
-     * @throws JsonException
+     * The scheduler will call this method every minute. and it will make queue for sending remainder email 10 minutes earlier of that task.
      */
     public function CreateEmailRemainderQueue(): string
     {
-        $response = Http::get('https://jsonplaceholder.typicode.com/posts/?_limit=10');
-
-        $response = json_decode($response->body(), true, 512, JSON_THROW_ON_ERROR);
-
-        $data = [];
-        foreach ($response as $res) {
-            $data [] = $res['title'];
-        }
-
-        if (!File::exists(public_path() . "/email-attachments")) {
-            File::makeDirectory(public_path() . "/email-attachments");
-        }
-
-        $filename = public_path("/email-attachments/sample.csv");
-        $handle = fopen($filename, 'wb');
-
-        fputcsv($handle, ['Title']);
-
-        foreach ($data as $d) {
-            fputcsv($handle, [$d]);
-        }
-
-        fclose($handle);
 
         $now = Carbon::now();
         $todayDate = $now->copy()->toDateString();
@@ -86,7 +63,7 @@ class TodoService
 
         $todos = Todo::Query()
             ->with(['user'])
-            ->where('sending_status', 0)
+            ->where('notification_status', 0)
             ->whereDate('date', $todayDate)
             ->where('time', '<=', $time1)
             ->where('time', '>', $time2)
@@ -94,7 +71,7 @@ class TodoService
 
         $i = 0;
         foreach ($todos as $todo) {
-            SendTodoRemainderEmail::dispatch($todo,$filename);
+            SendTodoRemainderEmail::dispatch($todo);
             $i++;
         }
 

@@ -17,17 +17,15 @@ class SendTodoRemainderEmail implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected $todo;
-    protected $fileName;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($todo, $fileName)
+    public function __construct($todo)
     {
         $this->todo = $todo;
-        $this->fileName = $fileName;
     }
 
     /**
@@ -37,17 +35,15 @@ class SendTodoRemainderEmail implements ShouldQueue
      */
     public function handle()
     {
-        $email = new TodoRemainderEmailQueue($this->todo, $this->fileName);
+        $email = new TodoRemainderEmailQueue($this->todo);
         $changeStatus = Todo::find($this->todo->id);
         try {
             Mail::to($this->todo->user->email)->send($email);
-
-            $changeStatus->sending_status = Todo::EMAIL_SENT;
+            $changeStatus->notification_status = Todo::EMAIL_SENT;
         } catch (\Exception $e) {
-            $changeStatus->sending_status = Todo::EMAIL_NOT_SENT;
+            $changeStatus->notification_status = Todo::EMAIL_NOT_SENT;
         }
 
         $changeStatus->update();
-
     }
 }

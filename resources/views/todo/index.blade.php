@@ -59,7 +59,7 @@
                     {data: 'title', name: 'title'},
                     {data: 'date', name: 'date'},
                     {data: 'time', name: 'time'},
-                    {data: 'sending_status', name: 'sending_status'},
+                    {data: 'notification_status', name: 'notification_status'},
                     {
                         data: 'action',
                         name: 'action',

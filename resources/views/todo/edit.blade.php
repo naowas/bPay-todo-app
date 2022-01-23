@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <div class="form-group">
                             <input type="hidden" name="user_id" value="{{$todo->user_id}}">
-                            <input type="hidden" name="sending_status" value="{{$todo->getRawOriginal('sending_status')}}">
+                            <input type="hidden" name="notification_status" value="{{$todo->getRawOriginal('notification_status')}}">
                             <x-adminlte-input name="title" label="Task title" value="{{$todo->title}}"/>
 
                         </div>

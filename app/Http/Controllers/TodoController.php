@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreTodoRequest;
 use App\Http\Requests\UpdateTodoRequest;
-use App\Jobs\SendTodoRemainderEmail;
 use App\Models\Todo;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -61,7 +60,7 @@ class TodoController extends Controller
     public function store(StoreTodoRequest $request): RedirectResponse
     {
         $data = [
-            'sending_status' => Todo::EMAIL_NOT_SENT,
+            'notification_status' => Todo::EMAIL_NOT_SENT,
             'user_id' => Auth::id(),
         ];
 
@@ -140,11 +139,11 @@ class TodoController extends Controller
 
     }
 
-    public function sendMailRemainder()
-    {
-
-        return $this->todoService->CreateEmailRemainderQueue();
-
-    }
+//    public function sendMailRemainder()
+//    {
+//
+//        return $this->todoService->CreateEmailRemainderQueue();
+//
+//    }
 
 }

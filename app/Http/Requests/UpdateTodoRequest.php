@@ -29,7 +29,7 @@ class UpdateTodoRequest extends FormRequest
             'date' => 'required|date',
             'time' => 'required',
             'user_id' => 'required|integer',
-            'sending_status' => 'required|integer',
+            'notification_status' => 'required|integer',
         ];
     }
 }
