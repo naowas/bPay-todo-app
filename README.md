@@ -1,5 +1,5 @@
 # Getting started
-This is a simple ToDo app that supports multiple users. This is a simple ToDo app that supports multiple users. It remaind user 10 minutes before task time
+This is a simple ToDo app that supports multiple users. It remaind users about their upcoming task 10 minutes earlier than the task time
 
 
 **This is based on Laravel Framework 8 and was created as a demonstration.**
